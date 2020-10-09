@@ -10,5 +10,9 @@ require "coding_ch_oct_nine"
 # require "pry"
 # Pry.start
 
-require "irb"
-IRB.start
+
+CodingChOctNine.main
+
+
+# require "irb"
+# IRB.start
