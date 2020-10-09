@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+
+require "coding_ch_oct_nine"
