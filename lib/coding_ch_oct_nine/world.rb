@@ -15,10 +15,11 @@ module CodingChOctNine
     end
 
     # Make the world tick forward
-    def tick
+    def tick!
       @piece_data.each do |piece|
         perform_tick_for_piece!(piece)
       end
+      print_state
     end
 
     # Reads a map.  Each character in a line represents a geometric point.

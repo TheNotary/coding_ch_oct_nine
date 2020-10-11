@@ -99,13 +99,18 @@ describe CodingChOctNine::World do
     expect(@world.print_state).to eq "XX1X2XX\n-------\n-X0X3Xn\n-9XXX4-\n-X8X6X-\n-------\nXX7X5XX\n"
   end
 
-  # it 'can tick the world moving tricker_treaters' do
-  #   @world = CodingChOctNine::World.new("../../config/map")
-  #
-  #   initial_state = @world.print_state
-  #   @world.tick
-  #   sequential_state = @world.print_state
-  #   expect(sequential_state).to eq "XX1X2XX\n------n\n-X0X3X-\n-9XXX4-\n-X8X6X-\n-------\nXX7X5XX\n"
-  # end
+  it 'can tick the world moving tricker_treaters' do
+    @world = CodingChOctNine::World.new("../../config/map")
+
+    initial_state = @world.print_state
+    sequential_state = @world.tick!
+    expect(sequential_state).to eq "XX1X2XX\n------n\n-X0X3X-\n-9XXX4-\n-X8X6X-\n-------\nXX7X5XX\n"
+    sequential_state = @world.tick!
+    expect(sequential_state).to eq "XX1X2XX\n-----n-\n-X0X3X-\n-9XXX4-\n-X8X6X-\n-------\nXX7X5XX\n"
+    sequential_state = @world.tick!
+    expect(sequential_state).to eq "XX1X2XX\n----n--\n-X0X3X-\n-9XXX4-\n-X8X6X-\n-------\nXX7X5XX\n"
+    sequential_state = @world.tick!
+    expect(sequential_state).to eq "XX1X2XX\n-------\n-X0XnX-\n-9XXX4-\n-X8X6X-\n-------\nXX7X5XX\n"
+  end
 
 end
