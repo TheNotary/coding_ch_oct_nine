@@ -5,6 +5,8 @@ describe CodingChOctNine::World do
 
   before :each do
     @world = CodingChOctNine::World.new
+    @world.x_dimension_length = 7
+    @world.y_dimension_length = 7
   end
 
   it 'can parse a map file' do
@@ -43,7 +45,7 @@ describe CodingChOctNine::World do
   it "can draw the higgs field" do
     # @world = CodingChOctNine::World.new("../../config/map")
     expected_field = create_test_higgs
-    higgs_field = @world.draw_higgs_field(File.read("#{File.dirname(__FILE__)}/../config/map"))
+    higgs_field = @world.draw_higgs_field
 
     expect(higgs_field).to eq expected_field
   end
@@ -112,5 +114,48 @@ describe CodingChOctNine::World do
     sequential_state = @world.tick!
     expect(sequential_state).to eq "XX1X2XX\n-------\n-X0XnX-\n-9XXX4-\n-X8X6X-\n-------\nXX7X5XX\n"
   end
+
+  it "can calculate_adjacent_points" do
+    state = create_test_higgs
+
+    obj = {x: 6, y: 2}
+    a_points = @world.calculate_adjacent_points(obj)
+    expect(a_points.count).to eq 3
+
+    obj = {x: 0, y: 0}
+    a_points = @world.calculate_adjacent_points(obj)
+    expect(a_points.count).to eq 2
+
+    obj = {x: 6, y: 6}
+    a_points = @world.calculate_adjacent_points(obj)
+    expect(a_points.count).to eq 2
+
+    obj = {x: 3, y: 3}
+    a_points = @world.calculate_adjacent_points(obj)
+
+    expect(a_points.count).to eq 4
+  end
+
+  it 'it can generate paths from a point to nearby houses' do
+    @world = CodingChOctNine::World.new("../../config/map")
+
+    paths = @world.build_paths_to_destinations(obj)
+
+    # expect(houses.count).to eq 4
+  end
+
+
+
+  # it 'can search adjacent houses' do
+  #   @world = CodingChOctNine::World.new("../../config/map")
+  #
+  #   adj_points = [{:x=>3, :y=>2}, {:x=>4, :y=>3}, {:x=>3, :y=>4}, {:x=>2, :y=>3}]
+  #   houses = @world.filter_houses(adj_points)
+  #
+  #   expect(houses.count).to eq 4
+  # end
+
+  # it 'can determine the shortest path to a destination' do
+  # end
 
 end
